@@ -1,10 +1,31 @@
-import React from 'react'
-import Login from './pages/login'
-import StudentDashboard from './pages/studnet'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/login";
+import Register from "./pages/regitser";
+
+import StudentLayout from "./pages/StudentLayout";
+import StudentDashboard from "./pages/StudentDashboard";
+import Courses from "./pages/Courses";
+import Settings from "./pages/Settings";
+
 const App = () => {
   return (
-    <div>< StudentDashboard /></div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
 
-export default App
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Student Layout */}
+        <Route path="/student" element={<StudentLayout />}>
+          <Route path="dashboard" element={<StudentDashboard />} />
+          <Route path="courses" element={<Courses />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;
