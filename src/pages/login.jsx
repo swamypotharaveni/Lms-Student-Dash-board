@@ -1,23 +1,102 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({})
+    const validate = () => {
+        const newErrors = {}
+        if (!email) {
+            newErrors.email = 'Email is required'
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Enter a valid email'
+        }
+        if (!password) {
+            newErrors.password = 'Password is required'
+        } else if (password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters'
+        }
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+
+    }
+    const handlesubmit = (e) => {
+        console.log(email, password)
+        e.preventDefault()
+        if (!validate()) return
+
+
+    }
     return (
-        <div className='bg-gray-100 h-screen items-center flex justify-center'>
-            <form className='bg-white p-6 rounded-2xl shadow-md w-96'>
-                <h2 class="text-2xl font-bold text-indigo-600 underline decoration-4 decoration-indigo-600 underline-offset-4 text-center mb-4">
-                    Login
-                </h2>
-                <input type='email' className='border p-2 w-full rounded mb-3' placeholder="Email" />
-                <input type='pwd' className='border p-2 w-full rounded mb-3' placeholder="Password" />
-                <button className="w-full bg-indigo-600 text-white font-semibold p-2 rounded hover:bg-indigo-700 transition" >Login</button>
-                  <div className='pt-3 justify-center flex gap-2'>
-                  <p className="text- text-gray-600">Don't have an account?</p>
-                    <span className="text-indigo-600 font-medium cursor-pointer hover:underline">
-                        Register
-                    </span>            </div>
-            </form>
-          
-            
+        <div className='bg-gray-100 h-screen items-center justify-center flex'>
+
+
+            <section className='shadow-lg p-6 bg-white rounded-lg w-full max-w-md'>
+                <h1 className='font-bold text-3xl text-center'>Login</h1>
+
+
+                <form onSubmit={handlesubmit} className='mb-3 pt-2'>
+
+
+                    <div>
+                        <label htmlFor="email" className='block mb-1 font-medium' >Email</label>
+                        <input className="border rounded py-2 px-3 w-full mb-3placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />{errors.email && (<p className="text-red-500 font-bold text-sm mt-1">{errors.email}</p>)}
+                    </div>
+
+
+                    <div>
+                        <label htmlFor="password" className='block mb-1 font-medium'>Password</label>
+                        <input className="border rounded py-2 px-3 w-full mb-3  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            type="pwd"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password" pattern="[^ ]*"
+                            onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => {
+                                if (e.key === ' ') {
+                                    e.preventDefault()
+                                }
+                            }}
+                        />{errors.password && (<p className="text-red-500 text-sm mt-1 font-bold">{errors.password}</p>)}
+
+                    </div>
+
+
+                    {/* <div className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            className="h-4 w-4"
+                            id="remember"
+
+                        />
+                        <label htmlFor="remember" className="text-indigo-700">
+                            Remember me
+                        </label>
+                    </div> */}
+
+
+                    <div className='flex py-2'>
+                        <button type="submit" className='w-full bg-indigo-700 py-4 rounded-lg text-white hover:text-indigo-100 transition'>Login</button>
+                    </div>
+
+
+                    <div className='flex gap-3'>
+                        <a href="#" className="text-indigo-700 hover:underline">Forgot password?</a>
+                        <br />
+                        <Link to="/register" className="text-indigo-700 hover:underline">Create an account</Link>
+                    </div>
+
+                </form>
+
+            </section>
+
         </div>
     )
 }
