@@ -25,7 +25,7 @@ const StudentLayout = () => {
     <div className="h-screen flex bg-gray-100">
 
       {/* Sidebar */}
-      <div className="bg-indigo-700 text-white w-64 p-6 flex flex-col shadow-xl">
+      <div className="bg-indigo-700 text-white w-74 p-6 flex flex-col shadow-xl">
 
         {/* Profile */}
         <div className="flex items-center gap-3 mb-10">
@@ -51,11 +51,11 @@ const StudentLayout = () => {
             <BookOpen size={20} /> My Courses
           </NavLink>
 
-          <NavLink to="" className={linkClass}>
+          <NavLink to="/student/courses" className={linkClass}>
             <FileText size={20} /> Assignments
           </NavLink>
 
-          <NavLink to="" className={linkClass}>
+          <NavLink to="/student/courses" className={linkClass}>
             <User size={20} /> Profile
           </NavLink>
 

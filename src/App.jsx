@@ -7,6 +7,7 @@ import StudentLayout from "./pages/StudentLayout";
 import StudentDashboard from "./pages/StudentDashboard";
 import Courses from "./pages/Courses";
 import Settings from "./pages/Settings";
+import Notfoud from "./pages/Notfoud";
 
 const App = () => {
   return (
@@ -16,13 +17,15 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
+
         {/* Student Layout */}
         <Route path="/student" element={<StudentLayout />}>
           <Route path="dashboard" element={<StudentDashboard />} />
           <Route path="courses" element={<Courses />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<Notfoud />} />
         </Route>
-
+        <Route path="*" element={<Notfoud />} />
       </Routes>
     </BrowserRouter>
   );
