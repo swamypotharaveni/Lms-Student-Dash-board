@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-
+import { LoginUser } from '../services/authService';
+import { useNavigate } from "react-router-dom";
+import useAuthRedirect from '../services/useAuthRedirect';
 const Login = () => {
+    useAuthRedirect()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({})
+      const navigate = useNavigate();
     const validate = () => {
         const newErrors = {}
         if (!email) {
@@ -22,10 +27,19 @@ const Login = () => {
         return Object.keys(newErrors).length === 0
 
     }
-    const handlesubmit = (e) => {
+    const handlesubmit =async (e) => {
         console.log(email, password)
         e.preventDefault()
         if (!validate()) return
+        try {
+            const data= await LoginUser({ email, password });
+            if (data.user.is_student) {
+        navigate("/student/dashboard");
+      } 
+        } catch (error) {
+           alert(error.message);
+            
+        }
 
 
     }
